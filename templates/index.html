@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поисковик</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .rainbow-text {
+            font-size: 2em;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .rainbow-text span {
+            display: inline-block;
+            animation: rainbow 2s linear infinite;
+        }
+        @keyframes rainbow {
+            0% { color: red; }
+            14% { color: orange; }
+            28% { color: yellow; }
+            42% { color: green; }
+            57% { color: blue; }
+            71% { color: indigo; }
+            85% { color: violet; }
+            100% { color: red; }
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 50%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 500px;
+            max-height: 400px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="rainbow-text">
+        <span>П</span>
+        <span>о</span>
+        <span>и</span>
+        <span>с</span>
+        <span>к</span>
+        <span>о</span>
+        <span>в</span>
+        <span>и</span>
+        <span>к</span>
+    </div>
+
+    <form method="POST">
+        <input type="text" name="search_term" placeholder="Введите запрос">
+        <button type="submit">Искать</button>
+    </form>
+
+    {% if summary %}
+        <h2>Результат:</h2>
+        <p>{{ summary }}</p>
+    {% endif %}
+
+    {% if image_url %}
+        <img src="{{ image_url }}" alt="Изображение">
+    {% endif %}
+
+</body>
+</html>
