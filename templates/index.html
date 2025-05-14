@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -53,9 +54,37 @@
             max-height: 400px;
             margin-top: 20px;
         }
+
+        /* Style for the search history */
+        .search-history {
+            margin-top: 30px;
+            text-align: left;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto; /* Center the history */
+        }
+
+        .search-history h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .search-history ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .search-history li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
     </style>
 </head>
 <body>
+    <h1>Привет, {{ username }}!</h1>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+
     <div class="rainbow-text">
         <span>П</span>
         <span>о</span>
@@ -80,6 +109,23 @@
 
     {% if image_url %}
         <img src="{{ image_url }}" alt="Изображение">
+    {% endif %}
+
+    <a href="/?show_history={% if show_history %}false{% else %}true{% endif %}">
+        <button>
+            {% if show_history %}Скрыть историю{% else %}Показать историю{% endif %}
+        </button>
+    </a>
+
+    {% if show_history %}
+        <div class="search-history">
+            <h3>История поиска:</h3>
+            <ul>
+                {% for term in search_history %}
+                    <li>{{ term }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 
 </body>
