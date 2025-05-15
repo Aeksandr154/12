@@ -59,13 +59,11 @@ def find_image_url(page_url):
 
 
 def register_user(username, password):
-    """Registers a new user by saving credentials to the user file."""
     with open(USER_FILE, 'a') as f:
         f.write(f'{username}:{password}\n')
 
 
 def authenticate_user(username, password):
-    """Authenticates a user by checking credentials against the user file."""
     if not os.path.exists(USER_FILE):
         return False
 
