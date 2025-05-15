@@ -7,11 +7,11 @@ import os
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['SECRET_KEY'] = 'your_secret_key_here'  # Replace with a strong secret key
+app.config['SECRET_KEY'] = 'your_secret_key_here'
 
 wikipedia.set_lang("ru")
 
-# File to store user credentials
+
 USER_FILE = 'users.txt'
 
 def get_wiki_info(search_term):
@@ -67,7 +67,7 @@ def register_user(username, password):
 def authenticate_user(username, password):
     """Authenticates a user by checking credentials against the user file."""
     if not os.path.exists(USER_FILE):
-        return False  # No users registered yet
+        return False
 
     with open(USER_FILE, 'r') as f:
         for line in f:
@@ -82,7 +82,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         register_user(username, password)
-        return redirect(url_for('login'))  # Redirect to login after registration
+        return redirect(url_for('login'))
     return render_template('register.html')
 
 
@@ -92,8 +92,8 @@ def login():
         username = request.form['username']
         password = request.form['password']
         if authenticate_user(username, password):
-            session['username'] = username  # Store username in session
-            return redirect(url_for('index'))  # Redirect to main page after login
+            session['username'] = username
+            return redirect(url_for('index'))
         else:
             return render_template('login.html', error='Неверный логин или пароль')
     return render_template('login.html', error=None)
@@ -101,14 +101,14 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)  # Remove username from session
-    return redirect(url_for('index'))  # Redirect to main page after logout
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if 'username' not in session:
-        return redirect(url_for('login'))  # Redirect to login if not logged in
+        return redirect(url_for('login'))
 
     summary = None
     image_url = None
@@ -129,7 +129,6 @@ def index():
 
 
 if __name__ == "__main__":
-    # Check if the user file exists, create it if it doesn't
     if not os.path.exists(USER_FILE):
         open(USER_FILE, 'a').close()
     app.run(debug=True)
